@@ -1,0 +1,461 @@
+.bckimage::before{
+height:1000px;
+width:1600px;
+content:'';
+background-image: url("glasses.png");background-repeat: no-repeat;
+background-size:cover;
+filter: grayscale(100%);
+position: fixed;
+opacity:0.4; 
+margin-top:-110px;
+
+}
+
+.bckimage{
+height:1000px;
+width:1600px;
+position: relative;
+margin-top:-10px;
+margin-left:-10px;
+
+
+}
+
+
+
+
+.navbar {
+  overflow: hidden;
+  background-color: white;
+  width:auto;
+  padding-left:280px;
+  padding-right:310px;
+  padding-top:50px;
+  height:80px;
+  position:relative;
+  opacity:1;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: flex;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding-top:10px;
+
+  
+  
+}
+
+.navbar a.right {
+  float: right;
+  display: flex;
+  color:grey;
+  text-align: center;
+  text-decoration: none;
+  padding:10px 10px;
+  color:#C0C0C0;
+  font-family: "Times New Roman", Times, serif;
+  font-size:13px;
+
+
+	
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: white;
+  color: black;
+}
+
+.lawyer-image{
+height:800px;
+background-image: url("lawyer.jpg");
+clip-path: inset(0px 0px 80px 0px);
+filter: brightness(80%);
+position:relative;
+background-size:cover;
+background-repeat:no-repeat;
+overflow:hidden;
+}
+
+
+.box {
+  opacity: 1;
+  top: 48%; 
+  left: 10%;
+  transform: translate(-50%, -50%); 
+  background-color: #103c5c;  
+  padding: 10px 20px; 
+  font-size: 20px; 
+  margin-left:290px;
+  position:absolute;
+  height:430px;
+  width:330px;
+
+}
+
+p{
+margin:0;
+padding: 0;
+}
+
+.p1{
+text-align: left;
+color: white;
+font-family: "Montserrat", sans-serif;
+font-weight: 500;
+font-size:12px;
+margin-left:15px;
+margin-top:40px;
+}
+
+.p2{
+color:white;
+font-family: "Montserrat", sans-serif;
+font-size:38px;
+letter-spacing:-1px;
+margin-left:15px;
+margin-bottom:10px;
+letter-spacing: -2px;
+line-height:1;
+
+}
+
+.p3{
+text-align: left;
+color:#fbdc14;
+font-family: "Arimo", sans-serif;
+font-size:12px;
+font-style: italic;
+margin-left:15px;
+margin-bottom:20px;
+
+}
+
+input[type=text]{
+  width: 80%;
+  padding:15px 15px;
+  background-color:white;
+  border: none;
+  margin-bottom:25px;
+  margin-left:15px;
+
+}
+
+#signup{
+  width: 45%;
+  padding:15px 15px;
+  background-color:#fbdc14;
+  border: none;
+  margin-bottom:50px;
+  font-family: "Montserrat", sans-serif;
+  font-size:10px;
+  font-weight:500;
+  margin-left:15px;
+  font-align:left;
+  color:black;
+  text-align: center;
+  letter-spacing: 1px;
+
+
+}
+
+.info{
+background-color: white;
+position:relative;
+height:280px;
+padding-top:90px;
+padding-left:220px;
+margin-top:-90px;
+}
+
+.info:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column{
+  float: left;
+  width: 300px;
+  background-color: white;
+  height: 200px; 
+  color: #696969;
+  text-align: auto;
+  margin-left:40px;
+  margin-right:50px;
+  margin-top:20px;
+  font-size:12px;
+  font-family: "Arimo", sans-serif;
+  line-height: 1.6;
+}
+
+
+
+.heading{
+color: black;
+font-family: "Montserrat", sans-serif;
+font-size:15px;
+margin-bottom: 12px;
+letter-spacing:-1px;
+font-weight:500;
+}
+
+.saying{
+background-color: #eeeeee;
+height: 360px;
+position:relative;
+line-height:2;
+}
+
+.line1{
+color:black;
+font-family: "Montserrat", sans-serif;
+font-size:20px;
+padding-left:370px;
+padding-top:120px;
+letter-spacing: 0px;
+font-weight:400;
+}
+
+.ceo{
+font-family: "Arimo", sans-serif;
+font-size:12px;
+text-align:center;
+}
+
+
+
+
+.container{
+position:relative;
+height:840px;
+margin-bottom:-300px;
+}
+
+.prices{
+position:relative;
+line-height:1.4;
+margin-top:0px;
+}
+
+.line2{
+color:black;
+font-family: "Montserrat", sans-serif;
+font-size:18px;
+font-weight:500;
+text-align: center;
+padding: 50px;
+}
+
+.plancont{
+position:relative;
+height:450px;
+margin-left:265px;
+margin-top:50px;
+
+}
+
+.pricebox{
+  position:relative;
+  width:335px;
+  height:509px;
+  float:left;
+  background-color:white;
+  margin-right:35px;
+  overflow:hidden;
+
+
+
+}
+
+
+
+
+
+
+.plan{
+opacity:1;
+font-size: 15px;
+font-family: "Montserrat", sans-serif;
+color:black;
+text-align: center;
+margin-top:38px;
+padding:20px;
+letter-spacing: -1px;
+font-weight:400;
+}
+
+.feature{
+font-size: 12px;
+position: relative;
+font-family: "Montserrat", sans-serif;
+color: 	#3b3b3b;
+text-align: center;
+letter-spacing: 0px;
+word-spacing: -1px;
+line-height:3;
+font-weight:500;
+
+}
+
+.rate{
+font-size: 25px;
+position: relative;
+font-family: "Arimo", sans-serif;
+text-align: center;
+letter-spacing: -1px;
+line-height:99%;
+}
+
+#buynow{
+  width: 50%;
+  padding:15px 15px;
+  background-color:#103c5c;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  font-size:15px;
+  margin-left:80px;
+  margin-top:30px;
+  color:white;
+  position:relative;
+  opacity:1;
+
+}
+
+.appcont{
+height:870px;
+background-image: linear-gradient(to right, rgb(0, 150, 255, 0.6), rgb(0, 150, 255,.6)), url("notebook.jpg");
+clip-path: inset(270px 0px 50px 0px);
+background-repeat:no-repeat;
+background-size:cover;
+filter: brightness(50%);
+position:relative;
+margin-bottom:-150px;
+
+}
+
+
+.bestapp{
+  opacity: 1;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  padding-top: 4240px;
+  line-height:1.6;
+ 
+
+}
+
+#tryit{
+  width: 42%;
+  padding:10px 10px;
+  background-color:#fbdc14;
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  font-size:13px;
+  font-weight:500;
+  color:black;
+  position:relative;
+  opacity:1;
+
+}
+
+.footer{
+height:250px;
+background-color:#28282B;
+position:relative;
+}
+
+.footerinfo{
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  position: relative;
+  padding-top:80px;
+  color: white;
+  line-height:1.8;
+}
+
+.imagescont{
+position:relative;
+width:270px;
+height:50px;
+display:flex;
+margin-top:15px;
+margin-left:660px;
+}
+
+.imagescont img{
+width:30px;
+height:30px;
+position:relative;
+object-fit:cover;
+padding:8px;
+margin-left:10px;
+}
+
+.pattern{
+opacity:0.05;
+  width:360px;
+  height:520px;
+margin-left:-22px;
+background-color:white;
+background-size:27px 27px;
+background-image:linear-gradient(
+    to bottom,
+    transparent 0 calc(50% - 0.5px),
+    black calc(50% - 0.5px) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px) 100%
+  ),linear-gradient(
+    to right,
+    transparent 0 calc(50% - 0.5px),
+    black calc(50% - 0.5px) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px) 100%
+  ),linear-gradient(
+    45deg,
+    transparent 0 calc(50% - 0.5px),
+    black calc(50% - 0.5px) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px) 100%
+  ),linear-gradient(
+    135deg,
+    transparent 0 calc(50% - 0.5px),
+    black calc(50% - 0.5px) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px) 100%
+  ),linear-gradient(
+    90deg,
+    transparent 0 calc(100% - 0.5px),
+    black calc(100% - 0.5px) calc(100% + 0.5px)
+  ),linear-gradient(
+    to top,
+    transparent 0 calc(100% - 0.5px),
+    black calc(100% - 0.5px) calc(100% + 0.5px)
+  );
+}
+
+.write{
+  opacity: 1;
+  transform: translate(0px, -500px);  
+  position:relative;
+  width:330px;
+  height:509px;
+  margin-left:5px;
+}
+
+
+
+
+
+
+
+
+
+
