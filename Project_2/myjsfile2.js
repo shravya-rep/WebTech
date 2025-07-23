@@ -174,7 +174,7 @@ async function validateformandgetdata(){
         console.log(inputCity);
         const inputState = document.getElementById("state").value;
         console.log(inputState);
-        const APIKEY = "AIzaSyDIOoQ8sIRAi7O9s-xQtWpowOWf9x-zkJQ";
+        //const APIKEY = "AIzaSyDIOoQ8sIRAi7O9s-xQtWpowOWf9x-zkJQ";
         const initialURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
         const URL = initialURL.concat(inputStreet, "+", inputCity, "+", inputState, "&key=", APIKEY);
         console.log(URL);
