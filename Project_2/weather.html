@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assignment-2</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+
+    <script src="myjsfile2.js"></script>
+    <link rel='stylesheet' type='text/css' href='mycssfile2.css'>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/datagrouping.js"></script>
+    <script src="https://code.highcharts.com/modules/windbarb.js"></script>
+    <script src="https://code.highcharts.com/modules/pattern-fill.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+
+
+</head>
+<body>
+<div id="bkgrnd">
+    <div id="inputbox">
+        <header id="ws">
+            <p id="lineone">Weather Search</p>
+            <p id="linetwo">Fill out the form to get weather info!</p>
+        </header>
+        <form id="myform">
+        <table class="data">
+            <tr>
+                <td style="padding-top:20px;"><span style="color:#00308F;font-family:'Open Sans', sans-serif;font-weight:500;">Street</span><span style="color:red;">*</span></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="text" id="street"></td>
+            </tr>
+            <tr>
+                <td style="padding-top:10px;"><span style="color:#00308F;font-family:'Open Sans', sans-serif;font-weight:500;">City</span><span style="color:red;">*</span></td>
+                <td style="padding-top:10px;"><span style="color:#00308F;font-family:'Open Sans', sans-serif;font-weight:500;">State</span><span style="color:red;">*</span></td>
+            </tr>
+            <tr>
+                <td ><input type="text" id="city"></td>
+                <td><input list="nameofstates" id="state"></td>
+                <datalist id="nameofstates">
+                    <option>Alabama</option>
+                    <option>Alaska</option>
+                    <option>Arizona</option>
+                    <option>Arkansas</option>
+                    <option>California</option>
+                    <option>Colorado</option>
+                    <option>Connecticut</option>
+                    <option>Delaware</option>
+                    <option>District Of Columbia</option>
+                    <option>Florida</option>
+                    <option>Georgia</option>
+                    <option>Hawaii</option>
+                    <option>Idaho</option>
+                    <option>Illinois</option>
+                    <option>Indiana</option>
+                    <option>Iowa</option>
+                    <option>Kansas</option>
+                    <option>Kentucky</option>
+                    <option>Louisiana</option>
+                    <option>Maine</option>
+                    <option>Maryland</option>
+                    <option>Massachusetts</option>
+                    <option>Michigan</option>
+                    <option>Minnesota</option>
+                    <option>Mississippi</option>
+                    <option>Missouri</option>
+                    <option>Montana</option>
+                    <option>Nebraska</option>
+                    <option>Nevada</option>
+                    <option>New Hampshire</option>
+                    <option>New Jersey</option>
+                    <option>New Mexico</option>
+                    <option>New York</option>
+                    <option>North Carolina</option>
+                    <option>North Dakota</option>
+                    <option>Ohio</option>
+                    <option>Oklahoma</option>
+                    <option>Oregon</option>
+                    <option>Pennsylvania</option>
+                    <option>Rhode Island</option>
+                    <option>South Carolina</option>
+                    <option>South Dakota</option>
+                    <option>Tennessee</option>
+                    <option>Texas</option>
+                    <option>Utah</option>
+                    <option>Vermont</option>
+                    <option>Virginia</option>
+                    <option>Washington</option>
+                    <option>West Virginia</option>
+                    <option>Wisconsin</option>
+                    <option>Wyoming</option>
+                </datalist>
+            </tr>
+        </table>
+        <footer id="remains">
+            <p id="demo"></p>
+            <p style="color:#00308F;font-family:'Open Sans', sans-serif;font-weight:500;">Want us to auto-detect your location? Check here <input type="checkbox" id="check"> </p>
+            <input type="button" value="SUBMIT" id="submit">
+            <input type="button" value="CLEAR" id="clear">
+
+        </footer>
+        </form>
+        <div id="output">
+            <div id="address"></div>
+            <div id="imgtemp">
+                <div id="imgdesc" style="width: 50%; float:left;">
+                    <div id="imageonly"></div>
+                    <div id="desc"></div>
+                </div>
+
+                <div id="temp" style="width: 50%;float:right;">
+                </div>
+            </div>
+            <div id="othervals">
+                <div id= "1Val" style="width:116px; float:left;">
+                    <p id="humidity"></p>
+                    <div id="hum"></div>
+                    <div id="humval"></div>
+                </div>
+                <div id= "2Val" style="width: 16.66%; float:left;">
+                    <p id="pressure"></p>
+                    <div id="pres"></div>
+                    <div id="presval"></div>
+                </div>
+                <div id= "3Val" style="width: 16.66%; float:left;">
+                    <p id="windspeed"></p>
+                    <div id="wind"></div>
+                    <div id="windval"></div>
+                </div>
+                <div id= "4Val" style="width: 16.66%; float:left;">
+                    <p id="visibility"></p>
+                    <div id="vis"></div>
+                    <div id="visval"></div>
+                </div>
+                <div id= "5Val" style="width: 16.66%; float:left;">
+                    <p id="cloudcover"></p>
+                    <div id="cloud"></div>
+                    <div id="cloudval"></div>
+                </div>
+                <div id= "6Val" style="width: 16.66%; float:left;">
+                    <p id="uvdisp"></p>
+                    <div id="uv"></div>
+                    <div id="uvval"></div>
+                </div>
+
+            </div>
+        </div>
+        <div id="tableoutput">
+            <table id="results">
+                <tr>
+                    <th class="headT">Date</th>
+                    <th colspan="2" class="headT">Status</th>
+                    <th class="headT">Temp High</th>
+                    <th class="headT">Temp Low</th>
+                    <th class="headT">Wind Speed</th>
+                </tr>
+                <tr id="0">
+                    <td id="onedate"></td>
+                    <td id="onestatus"></td>
+                    <td id="extra1"></td>
+                    <td id="oneth"></td>
+                    <td id="onetlow"></td>
+                    <td id="onews"></td>
+                </tr>
+                <tr id="1">
+                    <td id="twodate"></td>
+                    <td id="twostatus"></td>
+                    <td id="extra2"></td>
+                    <td id="twoth"></td>
+                    <td id="twotlow"></td>
+                    <td id="twows"></td>
+                </tr>
+                <tr id="2">
+                    <td id="threedate"></td>
+                    <td id="threestatus"></td>
+                    <td id="extra3"></td>
+                    <td id="threeth"></td>
+                    <td id="threetlow"></td>
+                    <td id="threews"></td>
+                </tr>
+                <tr id="3">
+                    <td id="fourdate"></td>
+                    <td id="fourstatus"></td>
+                    <td id="extra4"></td>
+                    <td id="fourth"></td>
+                    <td id="fourtlow"></td>
+                    <td id="fourws"></td>
+                </tr>
+                <tr id="4">
+                    <td id="fivedate"></td>
+                    <td id="fivestatus"></td>
+                    <td id="extra5"></td>
+                    <td id="fiveth"></td>
+                    <td id="fivetlow"></td>
+                    <td id="fivews"></td>
+                </tr>
+                <tr id="5">
+                    <td id="sixdate"></td>
+                    <td id="sixstatus"></td>
+                    <td id="extra6"></td>
+                    <td id="sixth"></td>
+                    <td id="sixtlow"></td>
+                    <td id="sixws"></td>
+                </tr>
+            </table>
+
+        </div>
+        <div id="WeatherDet">
+            <div class="DailyWD"><p>Daily Weather Details</p></div>
+            <div style="width:400px;margin-left:90px;"><hr></div>
+            <div id="WeatherCard">
+                <div id="topWC">
+                    <div id="topleft" style="float:left;">
+                        <p id="dayWC"></p>
+                        <p id="statWC"></p>
+                        <p id="tempWC" style="font-size:35px;margin-top: -10px"></p>
+                    </div>
+                    <div id="topright" style="float:right;">
+                    </div>
+                </div>
+                <div id="bottomWC">
+                    <div id= notwork" style="float:left;width:55%;text-align:right;">
+                        <p>Precipitation:</p>
+                        <p>Chance of rain:</p>
+                        <p>Wind Speed:</p>
+                        <p>Humidity:</p>
+                        <p>Visibility:</p>
+                        <p>Sunrise/SunSet:</p>
+                    </div>
+                    <div id="bottomright" style="float:right;width:45%;">
+                        <p id="ppt"></p>
+                        <p id="cr"></p>
+                        <p id="wispeed"></p>
+                        <p id="h"></p>
+                        <p id="v"></p>
+                        <p id="ss"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="DailyWD"><p>Weather Charts</p></div>
+            <div style="width:400px;margin-left:90px;"><hr></div>
+            <div id="arrow"><a href="#arrow"><img id="toggleing" src="Images/point-down-512.png" width="50px" height="50px" onclick="DispCharts()"></a></div>
+        </div>
+        <div id="containerFirst">
+        </div>
+        <div id="container">
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("check").addEventListener("click",clearandgetdata);
+    document.getElementById("submit").addEventListener("click", validateFunc);
+    document.getElementById("clear").addEventListener("click",clearall);
+
+    document.getElementById("0").addEventListener("click", mycardDisp0);
+    document.getElementById("1").addEventListener("click", mycardDisp0);
+    document.getElementById("2").addEventListener("click", mycardDisp0);
+    document.getElementById("3").addEventListener("click", mycardDisp0);
+    document.getElementById("4").addEventListener("click", mycardDisp0);
+    document.getElementById("5").addEventListener("click", mycardDisp0);
+
+</script>
+
+</body>
+</html>
