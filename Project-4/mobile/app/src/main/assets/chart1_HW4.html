@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.highcharts.com/es5/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+</head>
+<body>
+<div id="container" style="width: 800px; height: 500px; Margin: 0 auto" align="center"></div>
+
+<script>
+
+var ranges = [
+   [1733839200000,33.23,59.44],
+   [1733925600000,36.21,50.62],
+   [1734012000000,40.21,53.65],
+   [1734098400000,40.4,62.01],
+   [1734184800000,36.31,61.58]
+ ];
+
+ Highcharts.chart('container', {
+   title: {
+     text: 'Temperature variation by day'
+   },
+   xAxis: {
+     type: 'datetime'
+   },
+          yAxis: {
+            title: {
+                text: 'values'
+            }
+        },
+
+   tooltip: {
+     crosshairs: true,
+     shared: true,
+     valueSuffix: '°F',
+     xDateFormat: '%A, %b %e'
+   },
+
+
+   series: [{
+     data: ranges,
+     type: 'arearange',
+     linewidth: 5,
+     lineColor:'#FFA500',
+                 fillColor: {
+                linearGradient: {
+                    x1: 0,
+                    x2: 0,
+                    y1: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, '#FFA500'],
+                    [1, '#72bcd4']
+                ]
+            }
+   }]
+ })
+</script>
+</body>
+</html>
