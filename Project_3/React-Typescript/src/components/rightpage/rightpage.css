@@ -1,0 +1,10 @@
+.list{
+    background-color:white;
+    color:grey;
+    border-color: black;
+}
+
+.list:hover{
+    background-color: gray;
+    color: white;
+}

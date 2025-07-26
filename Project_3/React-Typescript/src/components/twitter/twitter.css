@@ -1,0 +1,9 @@
+.tweet{
+    background-color: white;
+    border-color: black;
+}
+.tweet:hover{
+    background-color: gray;
+    color: white;
+
+}
