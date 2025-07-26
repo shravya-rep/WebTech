@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 
 async function connectDB(){
-  const conn= mongoose.connect("mongodb+srv://shravya2490:NdZ0CSrGmwn0KWba@cluster0.3xllu.mongodb.net/HW3?retryWrites=true&w=majority&appName=Cluster0").then(result=>console.log("MongoDB Connected")).catch(error=>console.log(error));
+  const conn= mongoose.connect("mongo_server_link").then(result=>console.log("MongoDB Connected")).catch(error=>console.log(error));
 
 
 }
