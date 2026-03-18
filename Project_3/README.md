@@ -2,7 +2,7 @@
 
 **Live Demo:** _deploy to Render and paste your URL here_
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/shravya-rep/WebTech)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/shravya-rep/weather-app)
 
 A full-stack weather application built with **React + TypeScript**, **Node.js/Express**, and **MongoDB Atlas**. Users can search any U.S. location by address or auto-detect their current position to get a 6-day forecast, interactive charts, a detailed day view with Google Maps, and persistent favorites — all in a responsive single-page app.
 
