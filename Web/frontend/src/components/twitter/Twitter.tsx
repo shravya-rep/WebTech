@@ -23,7 +23,7 @@ const Twitter = (props:tweetdata) => {
     const tweetTemp:number=props.temp;
     const tweetStatus:string=props.s;
 
-    const URL:string="https://twitter.com/intent/tweet?text="+"The temperature in "+tweetCity+", "+tweetRegion+" on "+tweetDay+" is "+tweetTemp+"°F and the conditions are "+tweetStatus+"&hashtags="+"CSCI571WeatherForecast";
+    const URL:string="https://twitter.com/intent/tweet?text="+"The temperature in "+tweetCity+", "+tweetRegion+" on "+tweetDay+" is "+tweetTemp+"°F and the conditions are "+tweetStatus+"&hashtags="+"CSCI571WeatherSearch";
 
     const [tweetURL,setTweetURL]=useState('');
     

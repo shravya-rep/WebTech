@@ -26,6 +26,7 @@ export interface FavArray{
 export interface cityIDArray{
   id:number;
   value:string;
+  state:string;
 }
 
 
@@ -150,7 +151,7 @@ const Inputform = () => {
       
       for(var i=0;i<Object.entries(respfinal.predictions).length;i++)
       {
-        cityResults.push({id:i,value:respfinal.predictions[i].terms[0].value});
+        cityResults.push({id:i,value:respfinal.predictions[i].terms[0].value,state:respfinal.predictions[i].terms[1]?.value||''});
       }
       console.log(cityResults);
       setCityArray(cityResults);
@@ -165,11 +166,13 @@ const Inputform = () => {
   }
   const[wantToselect1,setwantToselect1]=useState(true);
   const[isCitySelected,SetIsCitySelected]=useState(false);
-  const onCitySelected=(selectedCity:any)=>{
+  const onCitySelected=(selectedCity:string, selectedState:string)=>{
     console.log(selectedCity);
-    setValues({ ...values, city: selectedCity });
+    setValues({ ...values, city: selectedCity, state: selectedState });
     SetIsCitySelected(true);
+    SetIsStateSelected(true);
     setwantToselect1(false);
+    setwantToselect2(false);
   }
   
 
@@ -556,8 +559,8 @@ const Inputform = () => {
         <ListGroup style={{zIndex:6, position:'absolute',width:'20rem'}}className='typeahead-list-group'>
           {!isCitySelected&&(cityArray!=undefined)&&
           cityArray.map(Fav => (
-          <ListGroup.Item key={Fav.id} className='typeahead-list-group-item' onClick={()=>onCitySelected(Fav.value)}>
-              {Fav.value}
+          <ListGroup.Item key={Fav.id} className='typeahead-list-group-item' onClick={()=>onCitySelected(Fav.value, Fav.state)}>
+              {Fav.value}{Fav.state ? `, ${Fav.state}` : ''}
           </ListGroup.Item>
 
           ))}

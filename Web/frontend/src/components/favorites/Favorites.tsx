@@ -16,7 +16,7 @@ const Favorites = (props:FavInputData) => {
     console.log(props.favArray);
         return (
             <div>
-                {props.favArray==0?
+                {props.NoOfFavs==0?
                 <Alert variant="warning">
                 Sorry.No records found.
                 </Alert>:props.favArray!=undefined?
