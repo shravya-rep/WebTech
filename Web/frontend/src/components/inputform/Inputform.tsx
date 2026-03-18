@@ -448,10 +448,12 @@ const Inputform = () => {
     try{
       const resp=await fetch(getDataURL1);
       const resp2= await resp.json();
-      console.log(resp2[0]);
-      console.log(resp2.length);
-      setNoOfFavs(resp2.length);
-      setFavArray(resp2);
+      if (Array.isArray(resp2)) {
+        setNoOfFavs(resp2.length);
+        setFavArray(resp2);
+      } else {
+        setNoOfFavs(0);
+      }
     }
     catch(error){
       console.log(error);
