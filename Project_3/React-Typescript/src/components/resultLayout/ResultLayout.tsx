@@ -287,14 +287,15 @@ const ResultLayout = (props: myVals) => {
                 temphighArray[ndays] = resp2.data.timelines[0].intervals[ndays].values.temperatureMax;
             }
             rawTempRef.current = timeArray.map((t, i) => ({ time: t, low: templowArray[i], high: temphighArray[i] }));
+            const cv = (f: number) => isCelsius ? Math.round((f - 32) * 5 / 9 * 10) / 10 : f;
             setDatapassed({
-                dataValsArray1: [timeArray[0], templowArray[0], temphighArray[0]],
-                dataValsArray2: [timeArray[1], templowArray[1], temphighArray[1]],
-                dataValsArray3: [timeArray[2], templowArray[2], temphighArray[2]],
-                dataValsArray4: [timeArray[3], templowArray[3], temphighArray[3]],
-                dataValsArray5: [timeArray[4], templowArray[4], temphighArray[4]],
-                dataValsArray6: [timeArray[5], templowArray[5], temphighArray[5]],
-                celsius: false
+                dataValsArray1: [timeArray[0], cv(templowArray[0]), cv(temphighArray[0])],
+                dataValsArray2: [timeArray[1], cv(templowArray[1]), cv(temphighArray[1])],
+                dataValsArray3: [timeArray[2], cv(templowArray[2]), cv(temphighArray[2])],
+                dataValsArray4: [timeArray[3], cv(templowArray[3]), cv(temphighArray[3])],
+                dataValsArray5: [timeArray[4], cv(templowArray[4]), cv(temphighArray[4])],
+                dataValsArray6: [timeArray[5], cv(templowArray[5]), cv(temphighArray[5])],
+                celsius: isCelsius
             });
 
             // find closest hourly interval to now for current conditions card
