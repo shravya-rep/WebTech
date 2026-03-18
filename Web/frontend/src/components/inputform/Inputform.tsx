@@ -455,6 +455,7 @@ const Inputform = () => {
     }
     catch(error){
       console.log(error);
+      setNoOfFavs(0);
     }
   }
 
@@ -498,6 +499,8 @@ const Inputform = () => {
       setGoogleError(false);
       setResButton(true);
       setFavButton(false);
+      setSubmitClicked(false);
+      setSubmitClicked(false);
 
 
 
