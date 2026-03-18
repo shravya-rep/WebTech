@@ -647,11 +647,7 @@ const Inputform = () => {
       <Alert variant="danger">An error occured. Please try again later.</Alert>
       : showComponent
         ? <ResultLayout handleFavClick={handleFavClick} favValsFromBE={favValsFromBE} favArray={favArray} NoOfFavs={NoOfFavs} toshow={showResult} val={latlong} city={city} region={region}/>
-        : <div className='text-center mt-5 text-muted'>
-            <img src='Images/clear_day.svg' height={80} width={80} style={{opacity:0.35}}/>
-            <p className='mt-3 fs-5'>Search for a city to see the weather forecast</p>
-            <p style={{fontSize:13}}>Enter an address above, or check "Current Location" to use your position</p>
-          </div>
+        : <div></div>
     }
   </div>
 
