@@ -140,7 +140,8 @@ const Inputform = () => {
   const handleChangeCity=async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
-    const url1:string="/autocomplete?cityval="+value;
+    const API = import.meta.env.VITE_API_URL || '';
+    const url1:string=API+"/autocomplete?cityval="+value;
     try{
       const resp4=await fetch(url1);
       const respfinal=await resp4.json();
@@ -439,7 +440,8 @@ const Inputform = () => {
     setResButton(false);
     setShowResult(false);
     setShowComponent(true);
-    const getDataURL1:string="/loaddata";
+    const API = import.meta.env.VITE_API_URL || '';
+    const getDataURL1:string=API+"/loaddata";
     try{
       const resp=await fetch(getDataURL1);
       const resp2= await resp.json();

@@ -182,7 +182,8 @@ const ResultLayout = (props: myVals) => {
 
     const fetchData = async () => {
         try {
-            const finalURL = `/processdata?lat=${latval}&long=${longval}`;
+            const API = import.meta.env.VITE_API_URL || '';
+            const finalURL = `${API}/processdata?lat=${latval}&long=${longval}`;
             const response = await fetch(finalURL);
             const resp2 = await response.json();
 
@@ -355,12 +356,13 @@ const ResultLayout = (props: myVals) => {
 
     const handleAddToFav = async (event: any) => {
         console.log(event.target);
+        const API = import.meta.env.VITE_API_URL || '';
         if (changeColor && favId) {
-            await fetch(`/deletedata?_id=${favId}`);
+            await fetch(`${API}/deletedata?_id=${favId}`);
             setChangeColor(false);
             setFavId('');
         } else {
-            const url = `/storedata?latlongval=${props.val}&city=${props.city}&state=${props.region}`;
+            const url = `${API}/storedata?latlongval=${props.val}&city=${props.city}&state=${props.region}`;
             const resp = await fetch(url);
             const resp2 = await resp.json();
             if (resp2._id) setFavId(resp2._id);

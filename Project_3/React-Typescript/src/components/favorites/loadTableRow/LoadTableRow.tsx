@@ -15,7 +15,8 @@ const LoadTableRow = (props:FavrowData) => {
     const callbackendGetData = async (event: any) => {
         console.log(event.target.value);
         const tosend:string=event.target.value;
-        const url1:string="/loadacity?_id="+tosend;
+        const API = import.meta.env.VITE_API_URL || '';
+        const url1:string=API+"/loadacity?_id="+tosend;
         console.log(url1);
         const resp=await fetch(url1);
         const resp2= await resp.json();
@@ -30,7 +31,8 @@ const LoadTableRow = (props:FavrowData) => {
         console.log("Inside deletebackendData");
         console.log(event.target.parentElement?.id);
         const tosend:(string|undefined)=event.target.parentElement?.id;
-        const url1:string="/deletedata?_id="+tosend;
+        const API = import.meta.env.VITE_API_URL || '';
+        const url1:string=API+"/deletedata?_id="+tosend;
         console.log(url1);
         const resp=await fetch(url1);
         const resp2= await resp.json();

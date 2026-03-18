@@ -1,8 +1,6 @@
 # WeatherNow — Full-Stack Weather Forecast App
 
-**Live Demo:** _deploy to Render and paste your URL here_
-
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/shravya-rep/weather-app)
+**Live Demo:** _coming soon_
 
 A full-stack weather application built with **React + TypeScript**, **Node.js/Express**, and **MongoDB Atlas**. Users can search any U.S. location by address or auto-detect their current position to get a 6-day forecast, interactive charts, a detailed day view with Google Maps, and persistent favorites — all in a responsive single-page app.
 
@@ -37,6 +35,8 @@ A full-stack weather application built with **React + TypeScript**, **Node.js/Ex
 | Weather Data | Tomorrow.io API |
 | Location | Google Geocoding API, Google Places API, IPInfo |
 | Sharing | X (Twitter) Web Intents |
+| Frontend Hosting | Vercel |
+| Backend Hosting | Railway |
 
 ---
 
@@ -45,6 +45,7 @@ A full-stack weather application built with **React + TypeScript**, **Node.js/Ex
 ```
 ┌─────────────────────────────────────┐
 │         Browser (React + TS)        │
+│  Deployed on Vercel                 │
 │                                     │
 │  Inputform → ResultLayout           │
 │      ↓             ↓                │
@@ -54,9 +55,10 @@ A full-stack weather application built with **React + TypeScript**, **Node.js/Ex
 │               ├── MapDisp (GMaps)   │
 │               └── Twitter (Share)   │
 └────────────┬────────────────────────┘
-             │ fetch (relative URLs)
+             │ fetch (VITE_API_URL in prod, Vite proxy in dev)
 ┌────────────▼────────────────────────┐
-│       Node.js / Express Backend     │
+│   Node.js / Express Backend         │
+│   Deployed on Railway               │
 │                                     │
 │  /processdata  → Tomorrow.io API    │
 │  /autocomplete → Google Places API  │
@@ -92,6 +94,7 @@ Project_3/
     │   └── App.tsx
     ├── public/
     │   └── Images/               # Weather condition SVG icons
+    ├── vercel.json               # SPA routing rewrites for Vercel
     ├── package.json
     └── vite.config.ts
 ```
@@ -110,13 +113,13 @@ Project_3/
 
 ---
 
-## Setup & Run
+## Local Setup & Run
 
 ### 1. Clone the repo
 
 ```bash
-git clone <your-repo-url>
-cd Project_3
+git clone https://github.com/shravya-rep/weather-app
+cd weather-app/Project_3
 ```
 
 ### 2. Configure API keys
@@ -139,7 +142,10 @@ TOMORROW_API_KEY=your_tomorrow_io_api_key
 ```
 VITE_GOOGLE_API_KEY=your_google_api_key
 VITE_IPINFO_TOKEN=your_ipinfo_token
+VITE_API_URL=
 ```
+
+> `VITE_API_URL` is left empty for local dev — the Vite dev server proxies all API calls to `localhost:8080` automatically.
 
 > All three Google services (Geocoding, Places, Maps JS) can share one key — just enable all three on the same key in Google Cloud Console.
 
@@ -154,7 +160,7 @@ node index.js
 # Server listening on port 8080
 ```
 
-### 4. Start the frontend (development)
+### 4. Start the frontend
 
 ```bash
 cd React-Typescript
@@ -164,24 +170,6 @@ npm run dev
 ```
 
 Open [http://localhost:5173](http://localhost:5173) in your browser.
-
----
-
-## Building for Production
-
-```bash
-cd React-Typescript
-npm run build
-# Output goes to dist/
-```
-
-The Express backend is already configured to serve the built frontend from `react-typescript/dist`:
-
-```js
-app.use(express.static('react-typescript/dist'));
-```
-
-So for production, build the frontend first, then run `node index.js` — a single Node process serves everything on port 8080.
 
 ---
 
@@ -210,46 +198,58 @@ So for production, build the frontend first, then run `node index.js` — a sing
 
 ---
 
-## Deploying to Render (Free)
+## Deployment
 
-This project is pre-configured for [Render](https://render.com) via `render.yaml` at the repo root. One service hosts both the frontend and backend.
+This app is split into two services:
 
-### Steps
+- **Frontend** → [Vercel](https://vercel.com) (serves the built React app)
+- **Backend** → [Railway](https://railway.app) (runs the Express API server)
 
-1. Push this repo to GitHub (make sure `.env` files are NOT committed)
+### Deploy the Backend to Railway
 
-2. Go to [render.com](https://render.com) → **New** → **Blueprint** → connect your GitHub repo
-   Render will detect `render.yaml` automatically
-
-3. In the Render dashboard for the service, go to **Environment** and add these variables:
+1. Create a new project on Railway and connect your GitHub repo
+2. Set the **Root Directory** to `Project_3/Backend`
+3. Railway will auto-detect Node.js and run `node index.js`
+4. Add these environment variables in the Railway dashboard:
 
    | Key | Value |
    |---|---|
    | `MONGODB_URI` | Your MongoDB Atlas connection string |
    | `GOOGLE_API_KEY` | Your Google API key |
    | `TOMORROW_API_KEY` | Your Tomorrow.io API key |
-   | `VITE_GOOGLE_API_KEY` | Your Google API key (same as above) |
+   | `FRONTEND_URL` | Your Vercel frontend URL (e.g. `https://weather-app.vercel.app`) |
+   | `NODE_ENV` | `production` |
+
+5. Copy the Railway service URL (e.g. `https://weather-app-backend.up.railway.app`)
+
+### Deploy the Frontend to Vercel
+
+1. Go to [vercel.com](https://vercel.com) → **Add New Project** → connect your GitHub repo
+2. Set the **Root Directory** to `Project_3/React-Typescript`
+3. Vercel will auto-detect Vite — no build configuration needed
+4. Add these environment variables in the Vercel dashboard:
+
+   | Key | Value |
+   |---|---|
+   | `VITE_GOOGLE_API_KEY` | Your Google API key |
    | `VITE_IPINFO_TOKEN` | Your IPInfo token |
+   | `VITE_API_URL` | Your Railway backend URL (from the step above) |
 
-4. Click **Deploy** — Render will build the frontend and start the backend automatically
+5. Click **Deploy**
 
-5. Your app will be live at `https://<your-service-name>.onrender.com`
-
-> **Note:** Free tier Render services spin down after 15 minutes of inactivity. The first request after a spin-down takes ~30 seconds. Upgrade to a paid plan to keep it always-on.
+> The `vercel.json` in `React-Typescript/` is already configured to handle SPA client-side routing.
 
 ### MongoDB Atlas — make sure your cluster is running
 
 Free-tier Atlas clusters **pause automatically** after 60 days of no activity. Before deploying:
 1. Log in to [cloud.mongodb.com](https://cloud.mongodb.com)
 2. Resume your cluster if it shows as Paused
-3. Under **Network Access**, add `0.0.0.0/0` to allow connections from Render's IPs
+3. Under **Network Access**, add `0.0.0.0/0` to allow connections from Railway's IPs
 
 ---
 
 ## Known Limitations
 
 - Weather data timezone is fixed to `America/Los_Angeles` — results for other timezones may show slightly offset times
-- Favorites do not deduplicate — saving the same city twice creates two entries
 - X share may not open on mobile browsers in private/incognito mode due to OAuth restrictions
 - IPInfo free tier has a monthly request cap
-

@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
 const app = express();
 
 const cors = require("cors");
@@ -12,12 +11,8 @@ const corsOption = {
 };
 app.use(cors(corsOption));
 
-app.use(express.static(path.join(__dirname, '..', 'React-Typescript', 'dist')));
-
-
-
 app.get('/', (req, res) => {
-  res.send('Hello from App Engine!');
+  res.send('Weather App Backend is running.');
 });
 
 // define the route
@@ -152,11 +147,6 @@ app.get('/processdata', async(req, res) => {
    
   */
       });
-
-// Fallback: serve React app for any unmatched route (SPA support)
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'React-Typescript', 'dist', 'index.html'));
-});
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8080;
