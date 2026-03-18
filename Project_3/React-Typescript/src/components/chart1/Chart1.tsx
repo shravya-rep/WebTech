@@ -11,7 +11,7 @@ export interface graphVals{
     dataValsArray4:number[];
     dataValsArray5:number[];
     dataValsArray6:number[];
-
+    celsius:boolean;
 }
 
 
@@ -43,7 +43,7 @@ const Chart1 = (props:graphVals) => {
         tooltip: {
             crosshairs: true,
             shared: true,
-            valueSuffix: '°F',
+            valueSuffix: props.celsius ? '°C' : '°F',
             xDateFormat: '%A, %b %e'
         },
         legend: {

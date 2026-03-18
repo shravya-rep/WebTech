@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: weathernow
+    runtime: node
+    rootDir: Project_3
+    buildCommand: cd React-Typescript && npm install && npm run build && cd ../Backend && npm install
+    startCommand: node Backend/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: TOMORROW_API_KEY
+        sync: false
+      - key: VITE_GOOGLE_API_KEY
+        sync: false
+      - key: VITE_IPINFO_TOKEN
+        sync: false

@@ -206,7 +206,7 @@ const Inputform = () => {
 
   useEffect(() => {setDispErrorMsg1(values.street.trim() !== ''||notValidStreet);},[values.street]);
   useEffect(() => {setDispErrorMsg2(values.city.trim() !== ''||notValidCity);},[values.city]);
-  useEffect(() => {setDispErrorMsg3(values.city.trim() !== ''||notValidCity);},[values.state]);
+  useEffect(() => {setDispErrorMsg3(values.state.trim() !== ''||notValidState);},[values.state]);
 
 
   const checkIfComplete=(event: any)=>{
@@ -294,7 +294,7 @@ const Inputform = () => {
 
      console.log("Inside firstone");
       const initialURLipinfo="https://ipinfo.io/?token="
-      const TOKENID="7aafc6aef32e53";
+      const TOKENID=import.meta.env.VITE_IPINFO_TOKEN;
       const URLipinfo=initialURLipinfo.concat(TOKENID);
       console.log(URLipinfo);
       try {
@@ -343,7 +343,7 @@ const Inputform = () => {
       var finalCity:string=cty.replaceAll(" ","+");
       console.log(finalSt);
 
-      const APIKEY = "AIzaSyDIOoQ8sIRAi7O9s-xQtWpowOWf9x-zkJQ";
+      const APIKEY = import.meta.env.VITE_GOOGLE_API_KEY;
       const initialURL = "https://maps.googleapis.com/maps/api/geocode/json?address=";
       const URL = initialURL.concat(finalSt, "+", finalCity, "+", values.state, "&key=", APIKEY);
       console.log(URL)
@@ -638,12 +638,16 @@ const Inputform = () => {
     {ResButton?<Button variant="primary" onClick={handleResultClick}>Results</Button>:<Button className="ResButton" onClick={handleResultClick}>Results</Button>}
     {!favButton?<Button className="favButton"onClick={handleFavClick}> Favourites</Button>:<Button variant="primary" onClick={handleFavClick}> Favourites</Button>}
     </div>
-    {googleError?<div>
-            <Alert variant="danger">
-            An error occured. Please try again later.
-            </Alert>
-            </div>:
-    showComponent&&<ResultLayout handleFavClick={handleFavClick} favValsFromBE={favValsFromBE} favArray={favArray} NoOfFavs={NoOfFavs} toshow={showResult} val={latlong} city={city} region={region}/>}
+    {googleError ?
+      <Alert variant="danger">An error occured. Please try again later.</Alert>
+      : showComponent
+        ? <ResultLayout handleFavClick={handleFavClick} favValsFromBE={favValsFromBE} favArray={favArray} NoOfFavs={NoOfFavs} toshow={showResult} val={latlong} city={city} region={region}/>
+        : <div className='text-center mt-5 text-muted'>
+            <img src='Images/clear_day.svg' height={80} width={80} style={{opacity:0.35}}/>
+            <p className='mt-3 fs-5'>Search for a city to see the weather forecast</p>
+            <p style={{fontSize:13}}>Enter an address above, or check "Current Location" to use your position</p>
+          </div>
+    }
   </div>
 
 
