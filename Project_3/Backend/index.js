@@ -33,26 +33,6 @@ const favModel= mongoose.model('Favorite',myschema);
 
 
 
-/*
-async function connectDB (){
-  try {
-    const conn=await mongoose.connect("mongodb+srv://shravya2490:NdZ0CSrGmwn0KWba@cluster0.3xllu.mongodb.net/HW3?retryWrites=true&w=majority&appName=Cluster0");
-    console.log("MongoDb Connected");
-    const myschema=conn.Schema({street:'string',city:'string',region:'string'});
-    const favModel=conn.model('Favorite',myschema);
-    return favModel;
-    console.log(favModel);
-    console.log(favModel);
-    const result=await favModel.create({street:'ABC',city:'Blue',region:'Washing'});
-    const found=await favModel.findOne({city:'Blue'}).exec();
-    console.log(found);
-    
-  }
-  catch(error){
-      console.log(error);
-  }
-}
-*/
 
 app.get('/storedata',async(req,res)=>{
   try {
@@ -117,36 +97,19 @@ app.get('/autocomplete',async(req,res)=>{
 
 
 app.get('/processdata', async(req, res) => {
-
-    console.log(req.query.lat);
-    console.log(req.query.long);
+  try {
     const latitude=req.query.lat;
-    console.log(latitude);
     const longitude=req.query.long;
-    console.log(longitude);
-    const URL1="https://api.tomorrow.io/v4/timelines?location="
-    const URL2=latitude;
-    const URL3=","+longitude;
     const URL4="&fields=temperature&fields=temperatureApparent&fields=temperatureMin&fields=temperatureMax&fields=windSpeed&fields=windDirection&fields=humidity&fields=pressureSeaLevel&fields=uvIndex&fields=weatherCode&fields=precipitationProbability&fields=precipitationType&fields=sunriseTime&fields=sunsetTime&fields=visibility&fields=moonPhase&fields=cloudCover&units=imperial&timezone=America/Los_Angeles&timesteps=1d,1h&apikey="+process.env.TOMORROW_API_KEY;
-    const finalURL=URL1+URL2+URL3+URL4;
-    console.log(finalURL);
-
+    const finalURL="https://api.tomorrow.io/v4/timelines?location="+latitude+","+longitude+URL4;
     const trial= await fetch(finalURL);
     const resp2=await trial.json();
     res.json(resp2);
-
-
-    /*
-
-    console.log(req.query.lat);
-    console.log(req.query.long);
-    const latitude=req.query.lat;
-    console.log(latitude);
-    const longitude=req.query.long;
-    console.log(longitude);
-   
-  */
-      });
+  } catch(error) {
+    console.log(error);
+    res.status(500).json({"error":"Failed to fetch weather data"});
+  }
+});
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8080;
