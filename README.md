@@ -76,27 +76,29 @@ The backend acts as a proxy for all third-party API calls, keeping API keys off 
 ## Project Structure
 
 ```
-Project_3/
-├── Backend/
-│   ├── index.js          # Express server, API proxy routes, MongoDB connection
+weather-app/
+├── backend/                      # Shared backend (used by both Web and Android)
+│   ├── index.js                  # Express server, API proxy routes, MongoDB connection
 │   └── package.json
-└── React-Typescript/
-    ├── src/
-    │   ├── components/
-    │   │   ├── inputform/        # Search form, autocomplete, IP detection
-    │   │   ├── resultLayout/     # 6-day table + tabs (Day View, Charts, Meteogram)
-    │   │   ├── rightpage/        # Day detail view with table + map
-    │   │   ├── chart1/           # Highcharts temperature range chart
-    │   │   ├── chart2/           # Highcharts meteogram (hourly)
-    │   │   ├── mapDisp/          # Google Maps embed
-    │   │   ├── favorites/        # Favorites table + row components
-    │   │   └── twitter/          # X share button
-    │   └── App.tsx
-    ├── public/
-    │   └── Images/               # Weather condition SVG icons
-    ├── vercel.json               # SPA routing rewrites for Vercel
-    ├── package.json
-    └── vite.config.ts
+├── Web/
+│   └── frontend/                 # React/TS app → deploys to Vercel
+│       ├── src/
+│       │   ├── components/
+│       │   │   ├── inputform/    # Search form, autocomplete, IP detection
+│       │   │   ├── resultLayout/ # 6-day table + tabs (Day View, Charts, Meteogram)
+│       │   │   ├── rightpage/    # Day detail view with table + map
+│       │   │   ├── chart1/       # Highcharts temperature range chart
+│       │   │   ├── chart2/       # Highcharts meteogram (hourly)
+│       │   │   ├── mapDisp/      # Google Maps embed
+│       │   │   ├── favorites/    # Favorites table + row components
+│       │   │   └── twitter/      # X share button
+│       │   └── App.tsx
+│       ├── public/
+│       │   └── Images/           # Weather condition SVG icons
+│       ├── vercel.json           # SPA routing rewrites for Vercel
+│       └── vite.config.ts
+└── Android/
+    └── mobile/                   # Android app (Kotlin) → deploys to Play Store
 ```
 
 ---
@@ -119,7 +121,7 @@ Project_3/
 
 ```bash
 git clone https://github.com/shravya-rep/weather-app
-cd weather-app/Project_3
+cd weather-app
 ```
 
 ### 2. Configure API keys
@@ -127,18 +129,18 @@ cd weather-app/Project_3
 Copy the example env files and fill in your own keys:
 
 ```bash
-cp Backend/.env.example Backend/.env
-cp React-Typescript/.env.example React-Typescript/.env
+cp backend/.env.example backend/.env
+cp Web/frontend/.env.example Web/frontend/.env
 ```
 
-**`Backend/.env`**
+**`backend/.env`**
 ```
 MONGODB_URI=your_mongodb_atlas_connection_string
 GOOGLE_API_KEY=your_google_api_key
 TOMORROW_API_KEY=your_tomorrow_io_api_key
 ```
 
-**`React-Typescript/.env`**
+**`Web/frontend/.env`**
 ```
 VITE_GOOGLE_API_KEY=your_google_api_key
 VITE_IPINFO_TOKEN=your_ipinfo_token
@@ -154,7 +156,7 @@ VITE_API_URL=
 ### 3. Start the backend
 
 ```bash
-cd Backend
+cd backend
 npm install
 node index.js
 # Server listening on port 8080
@@ -163,7 +165,7 @@ node index.js
 ### 4. Start the frontend
 
 ```bash
-cd React-Typescript
+cd Web/frontend
 npm install
 npm run dev
 # App running at http://localhost:5173
@@ -208,7 +210,7 @@ This app is split into two services:
 ### Deploy the Backend to Railway
 
 1. Create a new project on Railway and connect your GitHub repo
-2. Set the **Root Directory** to `Project_3/Backend`
+2. Set the **Root Directory** to `backend`
 3. Railway will auto-detect Node.js and run `node index.js`
 4. Add these environment variables in the Railway dashboard:
 
@@ -225,7 +227,7 @@ This app is split into two services:
 ### Deploy the Frontend to Vercel
 
 1. Go to [vercel.com](https://vercel.com) → **Add New Project** → connect your GitHub repo
-2. Set the **Root Directory** to `Project_3/React-Typescript`
+2. Set the **Root Directory** to `Web/frontend`
 3. Vercel will auto-detect Vite — no build configuration needed
 4. Add these environment variables in the Vercel dashboard:
 
