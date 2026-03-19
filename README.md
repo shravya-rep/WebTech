@@ -1,6 +1,6 @@
 # WeatherNow — Full-Stack Weather Forecast App
 
-**Live Demo:** _coming soon_
+**Live Demo:** [https://weather-app-nine-zeta-71.vercel.app](https://weather-app-nine-zeta-71.vercel.app)
 
 A full-stack weather application built with **React + TypeScript**, **Node.js/Express**, and **MongoDB Atlas**. Users can search any U.S. location by address or auto-detect their current position to get a 6-day forecast, interactive charts, a detailed day view with Google Maps, and persistent favorites — all in a responsive single-page app.
 
@@ -239,7 +239,7 @@ This app is split into two services:
 
 5. Click **Deploy**
 
-> The `vercel.json` in `React-Typescript/` is already configured to handle SPA client-side routing.
+> The `vercel.json` in `Web/frontend/` is already configured to handle SPA client-side routing.
 
 ### MongoDB Atlas — make sure your cluster is running
 
