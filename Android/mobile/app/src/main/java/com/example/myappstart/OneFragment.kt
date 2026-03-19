@@ -55,11 +55,11 @@ class OneFragment : Fragment() {
 
             val Card1: TextView= view.findViewById(R.id.textViewWS)
             val ws=variableFromActivity.windSpeed
-            Card1.text= ws.toString()+"mph"
+            Card1.text= String.format("%.2f", ws)+"mph"
 
             val Card2: TextView=view.findViewById(R.id.textViewP)
             val p=variableFromActivity.pressureSeaLevel
-            Card2.text=p.toString()+"inHg"
+            Card2.text=String.format("%.2f", p)+"inHg"
 
             val Card3: TextView=view.findViewById(R.id.textViewPPT)
             val ppt=variableFromActivity.precipitationProbability
@@ -67,7 +67,7 @@ class OneFragment : Fragment() {
 
             val Card4: TextView=view.findViewById(R.id.textViewTemp)
             val temp=variableFromActivity.temperature
-            Card4.text=temp.toString()+"°F"
+            Card4.text=kotlin.math.round(temp).toInt().toString()+"°F"
 
             val Card5: TextView=view.findViewById(R.id.textViewWC)
             val WC=variableFromActivity.weatherCode
@@ -146,18 +146,18 @@ class OneFragment : Fragment() {
 
             val Card6: TextView=view.findViewById(R.id.textViewHum)
             val hum=variableFromActivity.humidity
-            Card6.text=hum.toString()+"%"
+            Card6.text=String.format("%.2f", hum)+"%"
 
             val Card7: TextView=view.findViewById(R.id.textViewVis)
             val vis=variableFromActivity.visibility
-            Card7.text=vis.toString()+"mi"
+            Card7.text=String.format("%.2f", vis)+"mi"
 
             val Card8: TextView=view.findViewById(R.id.textViewCC)
             val cc=variableFromActivity.cloudCover
-            Card8.text=cc.toString()+"%"
+            Card8.text=String.format("%.2f", cc)+"%"
 
             val Card9: TextView=view.findViewById(R.id.textViewOzone)
-            val uv=3
+            val uv=variableFromActivity.uvIndex
             Card9.text=uv.toString()
 
 

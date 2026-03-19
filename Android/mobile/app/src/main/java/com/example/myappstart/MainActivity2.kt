@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity2 : AppCompatActivity() {
     lateinit var receivedData:Values
+    var weeklyData: ArrayList<Values> = arrayListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -42,6 +43,8 @@ class MainActivity2 : AppCompatActivity() {
         {
             receivedData=rd
         }
+        val wd = intent.getParcelableArrayListExtra<Values>("weeklyData")
+        if (wd != null) weeklyData = wd
         println("Inside Activity two")
         println(receivedData)
 
@@ -50,22 +53,18 @@ class MainActivity2 : AppCompatActivity() {
 
         val tweet:ImageView=findViewById(R.id.tweet)
         tweet.setOnClickListener{
-            //val tweetMessage = "Check out this amazing app!"
             val city:String=receivedData.city
             val region2:String=receivedData.region
-            val temp:String=(receivedData.temperature).toString()+"°F!"
-
-            val tweetUrl = "https://twitter.com/intent/tweet?text=Check out "+city+", "+region2+", "+"USA's weather! It is "+temp+"&hashtags="+"CSCI571WeatherSearch"
+            val temp:String=String.format("%.2f", receivedData.temperature)+"°F!"
+            val tweetText = "Check out $city, $region2, USA's weather! It is $temp #CSCI571WeatherSearch"
+            val tweetUrl = "https://twitter.com/intent/tweet?text=" + Uri.encode(tweetText)
             val tweetIntent = Intent(Intent.ACTION_VIEW, Uri.parse(tweetUrl))
             startActivity(tweetIntent)
         }
 
         val back: ImageView=findViewById(R.id.imageView16)
         back.setOnClickListener{
-            val intent=Intent(this,MainActivity::class.java)
-            intent.putExtra("datafromtwo",receivedData)
-            startActivity(intent)
-
+            finish()
         }
 
 

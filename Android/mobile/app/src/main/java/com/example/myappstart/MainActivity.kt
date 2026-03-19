@@ -64,6 +64,17 @@ class MainActivity : AppCompatActivity() {
 
     val CityList= arrayListOf<String>()
 
+    val BASE_URL = "https://weather-app-production-a0f0.up.railway.app"
+    var currentLoc = "35.059,-118.2426"
+    var currentCity = "Los Angeles"
+    var currentRegion = "California"
+    var currentFavId = ""
+    var fav1Id = ""; var fav1Loc = ""; var fav1City = ""; var fav1Region = ""
+    var fav2Id = ""; var fav2Loc = ""; var fav2City = ""; var fav2Region = ""
+    var ipInfoLoc = "35.059,-118.2426"
+    var ipInfoCity = "Los Angeles"
+    var ipInfoRegion = "California"
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -115,62 +126,11 @@ class MainActivity : AppCompatActivity() {
                 var location=result.getString("loc")
                 var city=result.getString("city")
                 var region=result.getString("region")
-                //callbackend(location,city,region)
-                var defLoc="35.059,-118.2426"
-                var defCity="Los Angeles"
-                var defRegion="California"
+                ipInfoLoc = location
+                ipInfoCity = city
+                ipInfoRegion = region
 
-                    if(cityAfterPage=="Las Vegas")
-                    {
-
-                        val searchIcon:ImageView=findViewById(R.id.imageView12)
-                        val searchBar: SearchView =findViewById(R.id.searchBar)
-                        val WApp:TextView=findViewById(R.id.WeatherApp)
-                        val goBack:ImageView=findViewById(R.id.goback)
-                        val dotView:ImageView=findViewById(R.id.dot1)
-                        var searchRes:TextView=findViewById(R.id.searchresult)
-                        val fab: ImageView= findViewById(R.id.floatingActionButton)
-
-                        searchBar.visibility=View.VISIBLE
-                        searchRes.visibility=View.VISIBLE
-                        searchIcon.visibility=View.INVISIBLE
-                        WApp.visibility=View.INVISIBLE
-                        goBack.visibility=View.VISIBLE
-                        dotView.visibility=View.VISIBLE
-                        fab.visibility=View.VISIBLE
-                        callbackend("36.1716,-115.1391","Las Vegas","Nevada")
-
-
-
-
-                    }
-                    if(cityAfterPage=="Bonner Springs")
-                    {
-
-                        val searchIcon:ImageView=findViewById(R.id.imageView12)
-                        val searchBar: SearchView =findViewById(R.id.searchBar)
-                        val WApp:TextView=findViewById(R.id.WeatherApp)
-                        val goBack:ImageView=findViewById(R.id.goback)
-                        val dotView:ImageView=findViewById(R.id.dot1)
-                        var searchRes:TextView=findViewById(R.id.searchresult)
-                        val fab: ImageView= findViewById(R.id.floatingActionButton)
-
-                        searchBar.visibility=View.VISIBLE
-                        searchRes.visibility=View.VISIBLE
-                        searchIcon.visibility=View.INVISIBLE
-                        WApp.visibility=View.INVISIBLE
-                        goBack.visibility=View.VISIBLE
-                        dotView.visibility=View.VISIBLE
-                        fab.visibility=View.VISIBLE
-                        callbackend("39.0597,-94.8836","Bonner Springs","Kansas")
-
-
-
-
-                    }
-                    else{
-                        callbackend(defLoc,defCity,defRegion)
-                    }
+                    callbackend(location, city, region)
 
 
 
@@ -180,7 +140,8 @@ class MainActivity : AppCompatActivity() {
             },{err -> Log.d("Volley Fail",err.message.toString())
 
             })
-            reqQue.add(request)
+            loadFavorites()
+        reqQue.add(request)
 
 
 
@@ -224,8 +185,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun callbackend(location: String, city: String, region: String) {
-
-
+        currentLoc = location
+        currentCity = city
+        currentRegion = region
 
         val DailyValuesList= arrayListOf<Values>()
         println(location)
@@ -233,7 +195,7 @@ class MainActivity : AppCompatActivity() {
         println(region)
         val latLong:List<String> =location.split(",")
 
-        val tomIO:String="https://myapipro-438622.wl.r.appspot.com/processdata"
+        val tomIO:String="$BASE_URL/processdata"
         val urlpart1:String ="?lat="
         val urlpart2:String = latLong[0]
         val urlpart3:String ="&long="
@@ -280,7 +242,7 @@ class MainActivity : AppCompatActivity() {
                     valuesJSON.getDouble("visibility"),
                     valuesJSON.getInt("weatherCode"),
                     valuesJSON.getDouble("windSpeed"),
-                    0,
+                    valuesJSON.optInt("uvIndex", 0),
                     city,
                     region
 
@@ -404,19 +366,19 @@ class MainActivity : AppCompatActivity() {
 
             val t4: TextView= findViewById<TextView>(R.id.textView12)
             val num4=DailyValuesList[0].humidity
-            t4.text = num4.toString()+"%"
+            t4.text = String.format("%.2f", num4)+"%"
 
             val t5: TextView= findViewById<TextView>(R.id.textView13)
             val num5=DailyValuesList[0].windSpeed
-            t5.text = num5.toString()+"mph"
+            t5.text = String.format("%.2f", num5)+"mph"
 
             val t6: TextView= findViewById<TextView>(R.id.textView14)
             val num6=DailyValuesList[0].visibility
-            t6.text = num6.toString()+"mi"
+            t6.text = String.format("%.2f", num6)+"mi"
 
             val t7: TextView= findViewById<TextView>(R.id.textView15)
             val num7=DailyValuesList[0].pressureSeaLevel
-            t7.text = num7.toString()+"inHg"
+            t7.text = String.format("%.2f", num7)+"inHg"
 
             val dateString=DailyValuesList[0].startTime
             val d:List<String> =dateString.split("T")
@@ -502,11 +464,11 @@ class MainActivity : AppCompatActivity() {
 
             val t9: TextView= findViewById<TextView>(R.id.textView18)
             val num9=DailyValuesList[0].temperatureMin
-            t9.text= num9.toString()
+            t9.text= round(num9).toInt().toString()
 
             val t10: TextView= findViewById<TextView>(R.id.textView19)
             val num10=DailyValuesList[0].temperatureMax
-            t10.text= num10.toString()
+            t10.text= round(num10).toInt().toString()
 
             //second row
             val dateString1=DailyValuesList[1].startTime
@@ -589,11 +551,11 @@ class MainActivity : AppCompatActivity() {
 
             val t19: TextView= findViewById<TextView>(R.id.textView21)
             val num19=DailyValuesList[1].temperatureMin
-            t19.text= num19.toString()
+            t19.text= round(num19).toInt().toString()
 
             val t110: TextView= findViewById<TextView>(R.id.textView22)
             val num110=DailyValuesList[1].temperatureMax
-            t110.text= num110.toString()
+            t110.text= round(num110).toInt().toString()
 
             //third row
             val dateString2=DailyValuesList[2].startTime
@@ -676,11 +638,11 @@ class MainActivity : AppCompatActivity() {
 
             val t29: TextView= findViewById<TextView>(R.id.textView24)
             val num29=DailyValuesList[2].temperatureMin
-            t29.text= num29.toString()
+            t29.text= round(num29).toInt().toString()
 
             val t120: TextView= findViewById<TextView>(R.id.textView25)
             val num120=DailyValuesList[2].temperatureMax
-            t120.text= num120.toString()
+            t120.text= round(num120).toInt().toString()
 
             //fourth row
             val dateString3=DailyValuesList[3].startTime
@@ -763,11 +725,11 @@ class MainActivity : AppCompatActivity() {
 
             val t39: TextView= findViewById<TextView>(R.id.textView27)
             val num39=DailyValuesList[3].temperatureMin
-            t39.text= num39.toString()
+            t39.text= round(num39).toInt().toString()
 
             val t130: TextView= findViewById<TextView>(R.id.textView28)
             val num130=DailyValuesList[3].temperatureMax
-            t130.text= num130.toString()
+            t130.text= round(num130).toInt().toString()
 
             //fifth row
             val dateString4=DailyValuesList[4].startTime
@@ -850,11 +812,11 @@ class MainActivity : AppCompatActivity() {
 
             val t49: TextView= findViewById<TextView>(R.id.textView30)
             val num49=DailyValuesList[4].temperatureMin
-            t49.text= num49.toString()
+            t49.text= round(num49).toInt().toString()
 
             val t140: TextView= findViewById<TextView>(R.id.textView31)
             val num140=DailyValuesList[4].temperatureMax
-            t140.text= num140.toString()
+            t140.text= round(num140).toInt().toString()
 
             //sixth row
             val dateString5=DailyValuesList[5].startTime
@@ -937,11 +899,11 @@ class MainActivity : AppCompatActivity() {
 
             val t59: TextView= findViewById<TextView>(R.id.textView33)
             val num59=DailyValuesList[5].temperatureMin
-            t59.text= num59.toString()
+            t59.text= round(num59).toInt().toString()
 
             val t150: TextView= findViewById<TextView>(R.id.textView34)
             val num150=DailyValuesList[5].temperatureMax
-            t150.text= num150.toString()
+            t150.text= round(num150).toInt().toString()
 
             //click the card
 
@@ -949,81 +911,25 @@ class MainActivity : AppCompatActivity() {
             card1.setOnClickListener{
                 val intent=Intent(this,MainActivity2::class.java)
                 intent.putExtra("data",DailyValuesList[0])
+                intent.putParcelableArrayListExtra("weeklyData", DailyValuesList)
                 startActivity(intent)
-
             }
 
-            //click fav button
-            var OneCity=0
-            var TwoCity=0
-            var newCity=0
-            var count=0
-            var loc1:String=""
-            var city1:String=""
-            var region1:String=""
-
-            var loc2:String=""
-            var city2:String=""
-            var region2:String=""
+            // Set FAB icon based on whether current city is already a favorite
+            currentFavId = when {
+                city == fav1City && fav1Id.isNotEmpty() -> fav1Id
+                city == fav2City && fav2Id.isNotEmpty() -> fav2Id
+                else -> ""
+            }
             val fab: ImageView= findViewById(R.id.floatingActionButton)
+            fab.setImageResource(if (currentFavId.isNotEmpty()) R.drawable.rem_fav else R.drawable.add_fav)
+
             fab.setOnClickListener{
-                count++
-                val check:ImageView=findViewById(R.id.dot3)
-                if(check.visibility==View.VISIBLE)
-                {
-                    val text:String=city+" is removed from favorites"
-                    Toast.makeText(this,text, Toast.LENGTH_LONG).show()
-                    fab.setImageResource(R.drawable.add_fav)
-                    val dot2:ImageView=findViewById(R.id.dot2)
-                    if(dot2.visibility==View.INVISIBLE)
-                    {
-                        val dot3:ImageView=findViewById(R.id.dot3)
-                        dot3.visibility=View.INVISIBLE
-
-                    }
-                    dot2.visibility=View.INVISIBLE
-
+                if (currentFavId.isNotEmpty()) {
+                    deleteFromFavorites(currentFavId, city)
+                } else {
+                    addToFavorites(currentLoc, city, region)
                 }
-                else{
-                    if(city=="Las Vegas")
-                    {
-                        if(count==1||count==3)
-                        {
-                            val text:String=city+" is added to favorites"
-                            Toast.makeText(this,text, Toast.LENGTH_LONG).show()
-                            fab.setImageResource(R.drawable.rem_fav)
-                            val dot1:ImageView=findViewById(R.id.dot1)
-                            dot1.visibility=View.VISIBLE
-                            val dot2:ImageView=findViewById(R.id.dot2)
-                            dot2.visibility=View.VISIBLE
-                        }
-                        if(count==2)
-                        {
-                            val text:String=city+" is removed from favorites"
-                            Toast.makeText(this,text, Toast.LENGTH_LONG).show()
-                            fab.setImageResource(R.drawable.add_fav)
-                            val dot2:ImageView=findViewById(R.id.dot2)
-                            dot2.visibility=View.INVISIBLE
-
-                        }
-                    }
-                    if(city=="Bonner Springs")
-                    {
-                        val text:String=city+" is added to favorites"
-                        Toast.makeText(this,text, Toast.LENGTH_LONG).show()
-                        fab.setImageResource(R.drawable.rem_fav)
-                        val dot1:ImageView=findViewById(R.id.dot1)
-                        dot1.visibility=View.VISIBLE
-                        val dot2:ImageView=findViewById(R.id.dot2)
-                        dot2.visibility=View.VISIBLE
-                        val dot3:ImageView=findViewById(R.id.dot3)
-                        dot3.visibility=View.VISIBLE
-
-                    }
-
-                }
-
-
 
 
 
@@ -1038,9 +944,9 @@ class MainActivity : AppCompatActivity() {
 
             val dotDef:ImageView=findViewById(R.id.dot1)
             dotDef.setOnClickListener{
-                val defLoc="35.059,-118.2426"
-                val defCity="Los Angeles"
-                val defRegion="California"
+                val defLoc=ipInfoLoc
+                val defCity=ipInfoCity
+                val defRegion=ipInfoRegion
 
                 //trial
                 val progressBar:ProgressBar = findViewById(R.id.progressBar)
@@ -1062,31 +968,7 @@ class MainActivity : AppCompatActivity() {
 
             val dotfav1:ImageView=findViewById(R.id.dot2)
             dotfav1.setOnClickListener{
-                println("Printing the values here")
-                //callbackend(loc1,city1,region1)
-
-                //trial
-                val progressBar:ProgressBar = findViewById(R.id.progressBar)
-                progressBar.visibility = View.VISIBLE
-                val pl:CardView=findViewById(R.id.placer)
-                pl.visibility=View.INVISIBLE
-                val FirstCard:CardView=findViewById(R.id.cardView)
-                FirstCard.visibility=View.INVISIBLE
-                val SecondCard:CardView=findViewById(R.id.cardView2)
-                SecondCard.visibility=View.INVISIBLE
-                val thirdView:LinearLayout=findViewById(R.id.linearLayout)
-                thirdView.visibility=View.INVISIBLE
-
-                callbackend("36.1716,-115.1391","Las Vegas","Nevada")
-                fab.visibility=View.VISIBLE
-                fab.setImageResource(R.drawable.rem_fav)
-            }
-
-
-            val dotfav2:ImageView=findViewById(R.id.dot3)
-                dotfav2.setOnClickListener{
-                    //callbackend(loc2,city2,region2)
-                    //trial
+                if (fav1Loc.isNotEmpty()) {
                     val progressBar:ProgressBar = findViewById(R.id.progressBar)
                     progressBar.visibility = View.VISIBLE
                     val pl:CardView=findViewById(R.id.placer)
@@ -1097,12 +979,29 @@ class MainActivity : AppCompatActivity() {
                     SecondCard.visibility=View.INVISIBLE
                     val thirdView:LinearLayout=findViewById(R.id.linearLayout)
                     thirdView.visibility=View.INVISIBLE
-
-                    callbackend("39.0597,-94.8836","Bonner Springs","Kansas")
                     fab.visibility=View.VISIBLE
-                    fab.setImageResource(R.drawable.rem_fav)
-
+                    callbackend(fav1Loc, fav1City, fav1Region)
                 }
+            }
+
+
+            val dotfav2:ImageView=findViewById(R.id.dot3)
+            dotfav2.setOnClickListener{
+                if (fav2Loc.isNotEmpty()) {
+                    val progressBar:ProgressBar = findViewById(R.id.progressBar)
+                    progressBar.visibility = View.VISIBLE
+                    val pl:CardView=findViewById(R.id.placer)
+                    pl.visibility=View.INVISIBLE
+                    val FirstCard:CardView=findViewById(R.id.cardView)
+                    FirstCard.visibility=View.INVISIBLE
+                    val SecondCard:CardView=findViewById(R.id.cardView2)
+                    SecondCard.visibility=View.INVISIBLE
+                    val thirdView:LinearLayout=findViewById(R.id.linearLayout)
+                    thirdView.visibility=View.INVISIBLE
+                    fab.visibility=View.VISIBLE
+                    callbackend(fav2Loc, fav2City, fav2Region)
+                }
+            }
 
 
 
@@ -1134,19 +1033,13 @@ class MainActivity : AppCompatActivity() {
                 goBack.visibility=View.INVISIBLE
                 searchBar.visibility = View.INVISIBLE
                 dotView.visibility=View.VISIBLE
-                if(count==1||count==3)
-                {
-                    dot2View.visibility=View.VISIBLE
-                }
-                if(count==4)
-                {
-                    dot3View.visibility=View.VISIBLE
-                }
+                if (fav1Id.isNotEmpty()) dot2View.visibility=View.VISIBLE
+                if (fav2Id.isNotEmpty()) dot3View.visibility=View.VISIBLE
                 searchRes.visibility=View.INVISIBLE
                 fab.visibility=View.INVISIBLE
-                var defLoc="35.059,-118.2426"
-                var defCity="Los Angeles"
-                var defRegion="California"
+                val defLoc=ipInfoLoc
+                val defCity=ipInfoCity
+                val defRegion=ipInfoRegion
                 //trial
                 val progressBar:ProgressBar = findViewById(R.id.progressBar)
                 progressBar.visibility = View.VISIBLE
@@ -1238,7 +1131,7 @@ class MainActivity : AppCompatActivity() {
     fun trial(context: Context, cityVal:String,cityList:ArrayList<String>){
 
         println("Inside the trial function")
-        val autoURL="https://myapipro-438622.wl.r.appspot.com/autocomplete?cityval="+cityVal
+        val autoURL="$BASE_URL/autocomplete?cityval="+cityVal
         val requestQueue: RequestQueue = Volley.newRequestQueue(context)
         val request= JsonObjectRequest(Request.Method.GET,autoURL,null,{result->
             Log.d("Tommorrow.io Output",result.toString())
@@ -1264,6 +1157,80 @@ class MainActivity : AppCompatActivity() {
         requestQueue.add(request)
 
 
+    }
+
+    fun loadFavorites() {
+        val url = "$BASE_URL/loaddata"
+        val reqQue = Volley.newRequestQueue(this)
+        val req = com.android.volley.toolbox.JsonArrayRequest(Request.Method.GET, url, null, { result ->
+            if (result.length() > 0) {
+                val f1 = result.getJSONObject(0)
+                fav1Id = f1.getString("_id")
+                fav1Loc = f1.optString("latlongval", "")
+                fav1City = f1.optString("city", "")
+                fav1Region = f1.optString("state", "")
+                val dot2: ImageView = findViewById(R.id.dot2)
+                dot2.visibility = View.VISIBLE
+            }
+            if (result.length() > 1) {
+                val f2 = result.getJSONObject(1)
+                fav2Id = f2.getString("_id")
+                fav2Loc = f2.optString("latlongval", "")
+                fav2City = f2.optString("city", "")
+                fav2Region = f2.optString("state", "")
+                val dot3: ImageView = findViewById(R.id.dot3)
+                dot3.visibility = View.VISIBLE
+            }
+        }, { err -> Log.d("Volley", err.message.toString()) })
+        reqQue.add(req)
+    }
+
+    fun addToFavorites(loc: String, city: String, region: String) {
+        val url = "$BASE_URL/storedata?latlongval=$loc&city=$city&state=$region"
+        val reqQue = Volley.newRequestQueue(this)
+        val req = com.android.volley.toolbox.JsonObjectRequest(Request.Method.GET, url, null, { result ->
+            val id = result.getString("_id")
+            currentFavId = id
+            Toast.makeText(this, "$city was added to favorites", Toast.LENGTH_LONG).show()
+            val fab: ImageView = findViewById(R.id.floatingActionButton)
+            fab.setImageResource(R.drawable.rem_fav)
+            if (fav1Id.isEmpty()) {
+                fav1Id = id; fav1Loc = loc; fav1City = city; fav1Region = region
+                val dot2: ImageView = findViewById(R.id.dot2)
+                dot2.visibility = View.VISIBLE
+            } else if (fav2Id.isEmpty()) {
+                fav2Id = id; fav2Loc = loc; fav2City = city; fav2Region = region
+                val dot3: ImageView = findViewById(R.id.dot3)
+                dot3.visibility = View.VISIBLE
+            }
+        }, { err -> Log.d("Volley", err.message.toString()) })
+        reqQue.add(req)
+    }
+
+    fun deleteFromFavorites(favId: String, city: String) {
+        val url = "$BASE_URL/deletedata?_id=$favId"
+        val reqQue = Volley.newRequestQueue(this)
+        val req = com.android.volley.toolbox.JsonObjectRequest(Request.Method.GET, url, null, { result ->
+            Toast.makeText(this, "$city was removed from favorites", Toast.LENGTH_LONG).show()
+            val fab: ImageView = findViewById(R.id.floatingActionButton)
+            fab.setImageResource(R.drawable.add_fav)
+            if (fav1Id == favId) {
+                fav1Id = fav2Id; fav1Loc = fav2Loc; fav1City = fav2City; fav1Region = fav2Region
+                fav2Id = ""; fav2Loc = ""; fav2City = ""; fav2Region = ""
+                val dot3: ImageView = findViewById(R.id.dot3)
+                dot3.visibility = View.INVISIBLE
+                if (fav1Id.isEmpty()) {
+                    val dot2: ImageView = findViewById(R.id.dot2)
+                    dot2.visibility = View.INVISIBLE
+                }
+            } else if (fav2Id == favId) {
+                fav2Id = ""; fav2Loc = ""; fav2City = ""; fav2Region = ""
+                val dot3: ImageView = findViewById(R.id.dot3)
+                dot3.visibility = View.INVISIBLE
+            }
+            currentFavId = ""
+        }, { err -> Log.d("Volley", err.message.toString()) })
+        reqQue.add(req)
     }
 
     fun getLatLong(context: Context,URL:String){
