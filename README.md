@@ -250,6 +250,22 @@ Free-tier Atlas clusters **pause automatically** after 60 days of no activity. B
 
 ---
 
+## Android App
+
+A native Android companion app (Kotlin) is available in the `Android/` directory. It shares the same Railway backend and MongoDB Atlas database.
+
+**Features:**
+- City search with autocomplete
+- Current location detection via IPinfo
+- Today / Weekly / Weather Data tabs (ViewPager2 + TabLayout)
+- Highcharts temperature range chart and solid gauge rendered via WebView
+- Favorites stored in MongoDB Atlas (add/remove with FAB)
+- One-tap Twitter/X sharing
+
+See [`Android/README.md`](Android/README.md) for setup instructions.
+
+---
+
 ## Known Limitations
 
 - Weather data timezone is fixed to `America/Los_Angeles` — results for other timezones may show slightly offset times
