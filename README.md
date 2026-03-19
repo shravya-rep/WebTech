@@ -252,6 +252,8 @@ Free-tier Atlas clusters **pause automatically** after 60 days of no activity. B
 
 ## Android App
 
+[![Android Demo](https://img.youtube.com/vi/88jpehsy6fY/0.jpg)](https://youtu.be/88jpehsy6fY)
+
 A native Android companion app (Kotlin) is available in the `Android/` directory. It shares the same Railway backend and MongoDB Atlas database.
 
 **Features:**
